@@ -1,0 +1,23 @@
+### @file
+#
+# Cmocka Library
+#
+###
+
+[Defines]
+  INF_VERSION                    = 0x00010007
+  BASE_NAME                      = CmockaLib
+  FILE_GUID                      = 9526121e-3ec5-455c-b05d-82ea8b88a63b
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = NULL
+  #buillt vs2017 debug from hash:  c4cdb7435b1666bf76e7d336662303972622fc01
+
+[Packages]
+  MdePkg/MdePkg.dec
+
+[Binaries.IA32]
+  LIB|ia32/cmocka-static.lib
+
+[Binaries.X64]
+  LIB|x64/cmocka-static.lib
