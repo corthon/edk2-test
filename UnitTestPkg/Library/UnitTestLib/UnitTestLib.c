@@ -265,11 +265,12 @@ InitUnitTestFramework (
   // If there is a persisted context, load it now.
   if (DoesCacheExist( NewFramework ))
   {
-    Status = LoadUnitTestCache( NewFramework, &(UNIT_TEST_SAVE_HEADER*)(NewFramework->SavedState) );
+    UNIT_TEST_SAVE_HEADER *SavedState = (UNIT_TEST_SAVE_HEADER*)NewFramework->SavedState;
+    Status = LoadUnitTestCache( NewFramework, &SavedState );
     if (EFI_ERROR( Status ))
     {
       // Don't actually report it as an error, but emit a warning.
-      DEBUG(( DEBUG_ERROR, __FUNCTION__" - Cache was detected, but failed to load.\n" ));
+      DEBUG(( DEBUG_ERROR, "%a - Cache was detected, but failed to load.\n", __FUNCTION__ ));
       Status = EFI_SUCCESS;
     }
   }
@@ -851,7 +852,7 @@ SaveFrameworkState (
   Status = SaveUnitTestCache( FrameworkHandle, Header );
   if (EFI_ERROR( Status ))
   {
-    DEBUG(( DEBUG_ERROR, __FUNCTION__" - Could not save state! %r\n", Status ));
+    DEBUG(( DEBUG_ERROR, "%a - Could not save state! %r\n", __FUNCTION__, Status ));
     Status = EFI_DEVICE_ERROR;
   }
 
@@ -895,7 +896,7 @@ SaveFrameworkStateAndQuit (
     //
     // Quit
     FrameworkExit ();
-    DEBUG(( DEBUG_ERROR, __FUNCTION__" - Unit test failed to quit! Framework can no longer be used!\n" ));
+    DEBUG(( DEBUG_ERROR, "%a - Unit test failed to quit! Framework can no longer be used!\n", __FUNCTION__ ));
 
     //
     // We REALLY shouldn't be here.
@@ -953,7 +954,7 @@ SaveFrameworkStateAndReboot (
     //
     // Reset 
     FrameworkResetSystem (ResetType);
-    DEBUG(( DEBUG_ERROR, __FUNCTION__" - Unit test failed to quit! Framework can no longer be used!\n" ));
+    DEBUG(( DEBUG_ERROR, "%a - Unit test failed to quit! Framework can no longer be used!\n", __FUNCTION__ ));
 
     //
     // We REALLY shouldn't be here.
