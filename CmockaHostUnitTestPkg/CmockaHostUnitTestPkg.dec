@@ -12,5 +12,5 @@
   PACKAGE_VERSION                = 0.1
 
 [Includes]
-  Library/CmockaLib/cmocka/include
-  Library/CmockaLib/cmocka/include/cmockery
+  Library/CmockaLib/cmocka_extdep/cmocka/include
+  Library/CmockaLib/cmocka_extdep/cmocka/include/cmockery
