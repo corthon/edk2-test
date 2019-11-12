@@ -1,8 +1,0 @@
-{
-  "scope": "unittest",
-  "type": "git",
-  "name": "cmocka",
-  "flags": [],
-  "source": "https://git.cryptomilk.org/projects/cmocka.git",
-  "version": "546bd50924245f4ca7292a3ef6a92504aa375455"
-}
