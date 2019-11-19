@@ -1,4 +1,4 @@
-## @file  UnitTestPkg.dec
+## @file  ShellBasedUnitTestPkg.dec
 #
 # This Package provides all definitions(including functions, MACROs, structures and library classes)
 # and libraries instances, which are used to support Unit Testing and Interface testing
@@ -11,8 +11,8 @@
 
 [Defines]
   DEC_SPECIFICATION              = 0x00010005
-  PACKAGE_NAME                   = UnitTestPkg
-  PACKAGE_GUID                   = 4A70C4A0-D72C-4D3F-9943-BE7C41C50BA3
+  PACKAGE_NAME                   = ShellBasedUnitTestPkg
+  PACKAGE_GUID                   = CD471C5C-DA32-4C66-B37A-A0A86912A972
   PACKAGE_VERSION                = 1.00
 
 
@@ -21,33 +21,11 @@
 
 [LibraryClasses]
 
-  ## @libraryclass Provides a unit test framework
-  #
-  UnitTestLib|Include\Library\UnitTestLib.h
-
-  ## @libraryclass Provide unit test assert helpers
-  #
-  UnitTestAssertLib|Include\Library\UnitTestAssertLib.h
-
-  ## @libraryclass Provide unit test logging
-  #
-  UnitTestLogLib|Include\Library\UnitTestLogLib.h
-
-  ## @libraryclass Provides a unit test result report
-  #
-  UnitTestResultReportLib|Include\Library\UnitTestResultReportLib.h
-
   ## @libraryclass Allows the platform to boot from a specific device on the next boot.
   #
   UnitTestBootLib|Include\Library\UnitTestBootLib.h
 
-  ## @libraryclass Allows save and restore unit test internal state
-  #
-  UnitTestPersistenceLib|Include\Library\UnitTestPersistenceLib.h
-
 [Guids]
-
-  gUnitTestPkgTokenSpaceGuid = { 0x833d3aba, 0x39b4, 0x43a2, { 0xb9, 0x30, 0x7a, 0x34, 0x53, 0x39, 0x31, 0xb3 } }
 
 [Ppis]
 
@@ -58,5 +36,4 @@
 [PcdsDynamic, PcdsDynamicEx]
 
 [PcdsFixedAtBuild]
-  gUnitTestPkgTokenSpaceGuid.UnitTestLogLevel|0xFFFFFFFF|UINT32|0x00000001
   

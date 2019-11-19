@@ -1,5 +1,5 @@
 ## @file
-# UnitTestPkg
+# ShellBasedUnitTestPkg
 #
 # Copyright (c) 2007 - 2018, Intel Corporation. All rights reserved.<BR>
 #
@@ -8,11 +8,11 @@
 ##
 
 [Defines]
-  PLATFORM_NAME                  = UnitTestPkg
-  PLATFORM_GUID                  = 7420CC7E-334E-4EFF-B974-A39613455168
+  PLATFORM_NAME                  = ShellBasedUnitTestPkg
+  PLATFORM_GUID                  = 110EE562-D2B5-4DB9-8351-340A972F9818
   PLATFORM_VERSION               = 1.00
   DSC_SPECIFICATION              = 0x00010005
-  OUTPUT_DIRECTORY               = Build/UnitTestPkg
+  OUTPUT_DIRECTORY               = Build/ShellBasedUnitTestPkg
   SUPPORTED_ARCHITECTURES        = IA32|IPF|X64|EBC|ARM|AARCH64
   BUILD_TARGETS                  = DEBUG|RELEASE|NOOPT
   SKUID_IDENTIFIER               = DEFAULT
@@ -168,21 +168,10 @@
   UnitTestPersistenceLib|UnitTestPkg/Library/UnitTestPersistenceLibFileSystem/UnitTestPersistenceLibFileSystem.inf
 
 [Components]
-  UnitTestPkg/Library/UnitTestLib/UnitTestLibDxe.inf
-  UnitTestPkg/Library/UnitTestLib/UnitTestLibPei.inf
-  UnitTestPkg/Library/UnitTestLib/UnitTestLibSmm.inf
-  UnitTestPkg/Library/UnitTestAssertLib/UnitTestAssertLib.inf
-  UnitTestPkg/Library/UnitTestLogLib/UnitTestLogLib.inf
-  UnitTestPkg/Library/UnitTestResultReportLibPlainTextOutput/UnitTestResultReportLibPlainTextOutput.inf
-  UnitTestPkg/Library/UnitTestResultReportLibDebug/UnitTestResultReportLibDebug.inf
-  UnitTestPkg/Library/UnitTestBootLibUsbClass/UnitTestBootLibUsbClass.inf
-  UnitTestPkg/Library/UnitTestBootLibNull/UnitTestBootLibNull.inf
-  UnitTestPkg/Library/UnitTestBootLibMicrosoftUsb/UnitTestBootLibMicrosoftUsb.inf
-  UnitTestPkg/Library/UnitTestPersistenceLibFileSystem/UnitTestPersistenceLibFileSystem.inf
-  UnitTestPkg/Library/UnitTestPersistenceLibNull/UnitTestPersistenceLibNull.inf
-  UnitTestPkg/Sample/SampleUnitTestApp/SampleUnitTestApp.inf
-  UnitTestPkg/Sample/SampleUnitTestPeim/SampleUnitTestPeim.inf
-  UnitTestPkg/Sample/SampleUnitTestSmm/SampleUnitTestSmm.inf
+  ShellBasedUnitTestPkg/Library/UnitTestBootLibMicrosoftUsb/UnitTestBootLibMicrosoftUsb.inf
+  ShellBasedUnitTestPkg/Library/UnitTestBootLibNull/UnitTestBootLibNull.inf
+  ShellBasedUnitTestPkg/Library/UnitTestBootLibUsbClass/UnitTestBootLibUsbClass.inf
+  ShellBasedUnitTestPkg/Library/UnitTestPersistenceLibFileSystem/UnitTestPersistenceLibFileSystem.inf
 
 [BuildOptions]
   *_*_*_CC_FLAGS = -D DISABLE_NEW_DEPRECATED_INTERFACES

@@ -1,5 +1,5 @@
 ## @file
-# UnitTestPkg
+# HostBasedUnitTestPkg
 #
 # Copyright (c) 2007 - 2018, Intel Corporation. All rights reserved.<BR>
 #
@@ -8,11 +8,11 @@
 ##
 
 [Defines]
-  PLATFORM_NAME                  = UnitTestPkg
-  PLATFORM_GUID                  = 7420CC7E-334E-4EFF-B974-A39613455168
+  PLATFORM_NAME                  = HostBasedUnitTestPkg
+  PLATFORM_GUID                  = 59646A2F-68A1-4207-A205-378BED1604A2
   PLATFORM_VERSION               = 1.00
   DSC_SPECIFICATION              = 0x00010005
-  OUTPUT_DIRECTORY               = Build/UnitTestPkg
+  OUTPUT_DIRECTORY               = Build/HostBasedUnitTestPkg
   SUPPORTED_ARCHITECTURES        = IA32|IPF|X64|EBC|ARM|AARCH64
   BUILD_TARGETS                  = DEBUG|RELEASE|NOOPT
   SKUID_IDENTIFIER               = DEFAULT
@@ -168,21 +168,7 @@
   UnitTestPersistenceLib|UnitTestPkg/Library/UnitTestPersistenceLibFileSystem/UnitTestPersistenceLibFileSystem.inf
 
 [Components]
-  UnitTestPkg/Library/UnitTestLib/UnitTestLibDxe.inf
-  UnitTestPkg/Library/UnitTestLib/UnitTestLibPei.inf
-  UnitTestPkg/Library/UnitTestLib/UnitTestLibSmm.inf
-  UnitTestPkg/Library/UnitTestAssertLib/UnitTestAssertLib.inf
-  UnitTestPkg/Library/UnitTestLogLib/UnitTestLogLib.inf
-  UnitTestPkg/Library/UnitTestResultReportLibPlainTextOutput/UnitTestResultReportLibPlainTextOutput.inf
-  UnitTestPkg/Library/UnitTestResultReportLibDebug/UnitTestResultReportLibDebug.inf
-  UnitTestPkg/Library/UnitTestBootLibUsbClass/UnitTestBootLibUsbClass.inf
-  UnitTestPkg/Library/UnitTestBootLibNull/UnitTestBootLibNull.inf
-  UnitTestPkg/Library/UnitTestBootLibMicrosoftUsb/UnitTestBootLibMicrosoftUsb.inf
-  UnitTestPkg/Library/UnitTestPersistenceLibFileSystem/UnitTestPersistenceLibFileSystem.inf
-  UnitTestPkg/Library/UnitTestPersistenceLibNull/UnitTestPersistenceLibNull.inf
-  UnitTestPkg/Sample/SampleUnitTestApp/SampleUnitTestApp.inf
-  UnitTestPkg/Sample/SampleUnitTestPeim/SampleUnitTestPeim.inf
-  UnitTestPkg/Sample/SampleUnitTestSmm/SampleUnitTestSmm.inf
+  HostBasedUnitTestPkg/Library/OsServiceLibHost/OsServiceLibHost.inf
 
 [BuildOptions]
   *_*_*_CC_FLAGS = -D DISABLE_NEW_DEPRECATED_INTERFACES
