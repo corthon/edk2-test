@@ -40,8 +40,8 @@ typedef struct {
   CMUnitTestFunction          TestFunc;
   CMFixtureFunction           SetupFunc;
   CMFixtureFunction           TeardownFunc;
-  CHAR16                      *Description;
-  CHAR16                      *ClassName;  //can't have spaces and should be short
+  CHAR8                       *Description;
+  CHAR8                       *ClassName;  //can't have spaces and should be short
   UNIT_TEST_FUNCTION          RunTest;
   UNIT_TEST_PREREQ            PreReq;
   UNIT_TEST_CLEANUP           CleanUp;
@@ -60,8 +60,8 @@ typedef struct {
   UINTN                       NumTests;
   CMFixtureFunction           GroupSetup;
   CMFixtureFunction           GroupTeardown;
-  CHAR16                      *Title;
-  CHAR16                      *Package;
+  CHAR8                       *Title;
+  CHAR8                       *Package;
   UNIT_TEST_SUITE_SETUP       Setup;
   UNIT_TEST_SUITE_TEARDOWN    Teardown;
   LIST_ENTRY                  TestCaseList;     // MY_UNIT_TEST_LIST_ENTRY
@@ -74,9 +74,9 @@ typedef struct {
 } MY_UNIT_TEST_SUITE_LIST_ENTRY;
 
 typedef struct {
-  CHAR16                    *Title;
-  CHAR16                    *ShortTitle;      // This title should contain NO spaces or non-filename charatecters. Is used in reporting and serialization.
-  CHAR16                    *VersionString;
+  CHAR8                     *Title;
+  CHAR8                     *ShortTitle;      // This title should contain NO spaces or non-filename charatecters. Is used in reporting and serialization.
+  CHAR8                     *VersionString;
   LIST_ENTRY                TestSuiteList;    // MY_UNIT_TEST_SUITE_LIST_ENTRY
 } MY_UNIT_TEST_FRAMEWORK;
 
@@ -101,7 +101,7 @@ typedef struct {
 STATIC
 BOOLEAN
 IsFrameworkShortNameValid (
-  IN  CHAR16    *ShortTitleString
+  IN  CHAR8     *ShortTitleString
   )
 {
   // TODO: Finish this function.
@@ -109,19 +109,19 @@ IsFrameworkShortNameValid (
 } // IsFrameworkShortNameValid()
 
 STATIC
-CHAR16*
+CHAR8*
 AllocateAndCopyString (
-  IN  CHAR16    *StringToCopy
+  IN  CHAR8     *StringToCopy
   )
 {
-  CHAR16    *NewString = NULL;
+  CHAR8     *NewString = NULL;
   UINTN     NewStringLength;
 
-  NewStringLength = StrnLenS( StringToCopy, UNIT_TEST_MAX_STRING_LENGTH ) + 1;
-  NewString = AllocatePool( NewStringLength * sizeof( CHAR16 ) );
+  NewStringLength = AsciiStrnLenS( StringToCopy, UNIT_TEST_MAX_STRING_LENGTH ) + 1;
+  NewString = AllocatePool( NewStringLength * sizeof( CHAR8 ) );
   if (NewString != NULL)
   {
-    StrCpyS( NewString, NewStringLength, StringToCopy );
+    AsciiStrCpyS( NewString, NewStringLength, StringToCopy );
   }
 
   return NewString;
@@ -179,9 +179,9 @@ EFI_STATUS
 EFIAPI
 InitUnitTestFramework (
   OUT UNIT_TEST_FRAMEWORK   **Framework,
-  IN  CHAR16                *Title,
-  IN  CHAR16                *ShortTitle,
-  IN  CHAR16                *VersionString
+  IN  CHAR8                 *Title,
+  IN  CHAR8                 *ShortTitle,
+  IN  CHAR8                 *VersionString
   )
 {
   EFI_STATUS                Status;
@@ -247,8 +247,8 @@ EFIAPI
 CreateUnitTestSuite (
   OUT UNIT_TEST_SUITE           **Suite,
   IN UNIT_TEST_FRAMEWORK        *Framework,
-  IN CHAR16                     *Title,
-  IN CHAR16                     *Package,
+  IN CHAR8                      *Title,
+  IN CHAR8                      *Package,
   IN UNIT_TEST_SUITE_SETUP      Sup    OPTIONAL,
   IN UNIT_TEST_SUITE_TEARDOWN   Tdn    OPTIONAL
   )
@@ -329,8 +329,8 @@ EFI_STATUS
 EFIAPI
 AddTestCase (
   IN UNIT_TEST_SUITE      *Suite,
-  IN CHAR16               *Description,
-  IN CHAR16               *ClassName,
+  IN CHAR8                *Description,
+  IN CHAR8                *ClassName,
   IN UNIT_TEST_FUNCTION   Func,
   IN UNIT_TEST_PREREQ     PreReq    OPTIONAL,
   IN UNIT_TEST_CLEANUP    CleanUp   OPTIONAL,
@@ -394,11 +394,11 @@ AddTestCase (
   CopyMem ((VOID *)(UINTN)NewTestEntry->UT.TeardownFunc, (VOID *)(UINTN)TeardownFuncTemplate, mTeardownFuncTemplateSize);
   *(UINTN *)((UINTN)NewTestEntry->UT.TeardownFunc + sizeof(UINTN)/sizeof(UINT32)) = (UINTN)&NewTestEntry->UT;
 
-  TestNameSize = StrLen (Description) + 1;
+  TestNameSize = AsciiStrLen (Description) + 1;
   NewTestEntry->UT.TestName  = AllocatePool (TestNameSize);
   ASSERT (NewTestEntry->UT.TestName != NULL);
 
-  Status = UnicodeStrToAsciiStrS (Description, NewTestEntry->UT.TestName, TestNameSize);
+  Status = AsciiStrCpyS (NewTestEntry->UT.TestName, TestNameSize, Description);
   ASSERT_EFI_ERROR(Status);
 
 
@@ -464,7 +464,7 @@ RunAllTestSuites(
                            Entry
                            );
     TestSuite = &TestSuiteListEntry->UTS;
-    Status = UnicodeStrToAsciiStrS (TestSuite->Title, GroupName, sizeof(GroupName));
+    Status = AsciiStrCpyS (GroupName, sizeof(GroupName), TestSuite->Title);
     ASSERT_EFI_ERROR(Status);
 
     Tests = AllocateZeroPool (TestSuite->NumTests * sizeof(struct CMUnitTest));
