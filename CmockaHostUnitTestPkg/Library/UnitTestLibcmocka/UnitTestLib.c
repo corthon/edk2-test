@@ -340,12 +340,10 @@ AddTestCase (
   EFI_STATUS               Status;
   MY_UNIT_TEST_SUITE       *MySuite;
   MY_UNIT_TEST_LIST_ENTRY  *NewTestEntry;
-  MY_UNIT_TEST_FRAMEWORK   *ParentFramework;
   UINTN                    TestNameSize;
 
   Status = EFI_SUCCESS;
   MySuite = (MY_UNIT_TEST_SUITE *)Suite;
-  ParentFramework = (MY_UNIT_TEST_FRAMEWORK*)MySuite->ParentFramework;
 
   //
   // First, let's check to make sure that our parameters look good.
