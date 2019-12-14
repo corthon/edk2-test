@@ -148,7 +148,7 @@ GlobalPointerShouldBeChangeable (
 int main ()
 {
   EFI_STATUS                Status;
-  UNIT_TEST_FRAMEWORK       *Fw = NULL;
+  UNIT_TEST_FRAMEWORK       *Framework = NULL;
   UNIT_TEST_SUITE           *SimpleMathTests, *GlobalVarTests;
 
   DEBUG(( DEBUG_INFO, "%s v%s\n", UNIT_TEST_NAME, UNIT_TEST_VERSION ));
@@ -156,7 +156,7 @@ int main ()
   //
   // Start setting up the test framework for running the tests.
   //
-  Status = InitUnitTestFramework( &Fw, UNIT_TEST_NAME, gEfiCallerBaseName, UNIT_TEST_VERSION );
+  Status = InitUnitTestFramework( &Framework, UNIT_TEST_NAME, gEfiCallerBaseName, UNIT_TEST_VERSION );
   if (EFI_ERROR( Status ))
   {
     DEBUG((DEBUG_ERROR, "Failed in InitUnitTestFramework. Status = %r\n", Status));
@@ -166,37 +166,37 @@ int main ()
   //
   // Populate the SimpleMathTests Unit Test Suite.
   //
-  Status = CreateUnitTestSuite( &SimpleMathTests, Fw, "Simple Math Tests", "Sample.Math", NULL, NULL );
+  Status = CreateUnitTestSuite( &SimpleMathTests, Framework, "Simple Math Tests", "Sample.Math", NULL, NULL );
   if (EFI_ERROR( Status ))
   {
     DEBUG((DEBUG_ERROR, "Failed in CreateUnitTestSuite for SimpleMathTests\n"));
     Status = EFI_OUT_OF_RESOURCES;
     goto EXIT;
   }
-  AddTestCase( SimpleMathTests, "Adding 1 to 1 should produce 2", "Sample.Math.Addition", OnePlusOneShouldEqualTwo, NULL, NULL, NULL );
+  AddTestCase( SimpleMathTests, "Adding 1 to 1 should produce 2", "Addition", OnePlusOneShouldEqualTwo, NULL, NULL, NULL );
 
   //
   // Populate the GlobalVarTests Unit Test Suite.
   //
-  Status = CreateUnitTestSuite( &GlobalVarTests, Fw, "Global Variable Tests", "Sample.Globals", NULL, NULL );
+  Status = CreateUnitTestSuite( &GlobalVarTests, Framework, "Global Variable Tests", "Sample.Globals", NULL, NULL );
   if (EFI_ERROR( Status ))
   {
     DEBUG((DEBUG_ERROR, "Failed in CreateUnitTestSuite for GlobalVarTests\n"));
     Status = EFI_OUT_OF_RESOURCES;
     goto EXIT;
   }
-  AddTestCase( GlobalVarTests, "You should be able to change a global BOOLEAN", "Sample.Globals.Boolean", GlobalBooleanShouldBeChangeable, NULL, NULL, NULL );
-  AddTestCase( GlobalVarTests, "You should be able to change a global pointer", "Sample.Globals.Pointer", GlobalPointerShouldBeChangeable, MakeSureThatPointerIsNull, ClearThePointer, NULL );
+  AddTestCase( GlobalVarTests, "You should be able to change a global BOOLEAN", "Boolean", GlobalBooleanShouldBeChangeable, NULL, NULL, NULL );
+  AddTestCase( GlobalVarTests, "You should be able to change a global pointer", "Pointer", GlobalPointerShouldBeChangeable, MakeSureThatPointerIsNull, ClearThePointer, NULL );
 
   //
   // Execute the tests.
   //
-  Status = RunAllTestSuites( Fw );
+  Status = RunAllTestSuites( Framework );
 
 EXIT:
-  if (Fw)
+  if (Framework)
   {
-    FreeUnitTestFramework( Fw );
+    FreeUnitTestFramework( Framework );
   }
 
   return Status;
